@@ -20,7 +20,8 @@
       "Bash(node .tmp-verify-trust.mjs)",
       "Bash(node .tmp-verify-services.mjs)",
       "Bash(node .tmp-verify-why.mjs)",
-      "Bash(node .tmp-verify-projects.mjs)"
+      "Bash(node .tmp-verify-projects.mjs)",
+      "Bash(node .tmp-verify-projects2.mjs)"
     ]
   }
 }
