@@ -3,6 +3,8 @@ import { Container } from '@/components/ui/Container'
 import { HeroSection } from '@/pages/home/sections/HeroSection'
 import { TrustSection } from '@/pages/home/sections/TrustSection'
 import { ServicesSection } from '@/pages/home/sections/ServicesSection'
+import { WhyChooseUsSection } from '@/pages/home/sections/WhyChooseUsSection'
+import { FeaturedProjectsSection } from '@/pages/home/sections/FeaturedProjectsSection'
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <HeroSection />
         <TrustSection />
         <ServicesSection />
+        <WhyChooseUsSection />
+        <FeaturedProjectsSection />
 
         <section className="flex h-[60vh] items-center">
           <Container>
