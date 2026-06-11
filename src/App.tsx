@@ -1,0 +1,25 @@
+import { Navbar } from '@/layouts/navbar'
+import { Container } from '@/components/ui/Container'
+import { HeroSection } from '@/pages/home/sections/HeroSection'
+import { TrustSection } from '@/pages/home/sections/TrustSection'
+
+function App() {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+
+      <main>
+        <HeroSection />
+        <TrustSection />
+
+        <section className="flex h-[60vh] items-center">
+          <Container>
+            <p className="text-muted">Khu vực xem trước cho các section tiếp theo.</p>
+          </Container>
+        </section>
+      </main>
+    </div>
+  )
+}
+
+export default App
