@@ -5,6 +5,7 @@ import { TrustSection } from '@/pages/home/sections/TrustSection'
 import { ServicesSection } from '@/pages/home/sections/ServicesSection'
 import { WhyChooseUsSection } from '@/pages/home/sections/WhyChooseUsSection'
 import { FeaturedProjectsSection } from '@/pages/home/sections/FeaturedProjectsSection'
+import { CertificatesSection } from '@/pages/home/sections/CertificatesSection'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <ServicesSection />
         <WhyChooseUsSection />
         <FeaturedProjectsSection />
+        <CertificatesSection />
 
         <section className="flex h-[60vh] items-center">
           <Container>
