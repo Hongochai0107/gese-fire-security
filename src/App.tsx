@@ -2,6 +2,7 @@ import { Navbar } from '@/layouts/navbar'
 import { Container } from '@/components/ui/Container'
 import { HeroSection } from '@/pages/home/sections/HeroSection'
 import { TrustSection } from '@/pages/home/sections/TrustSection'
+import { ServicesSection } from '@/pages/home/sections/ServicesSection'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <main>
         <HeroSection />
         <TrustSection />
+        <ServicesSection />
 
         <section className="flex h-[60vh] items-center">
           <Container>

@@ -17,7 +17,8 @@
       "Bash(node .tmp-verify-rebrand.mjs)",
       "Bash(node .tmp-verify-hero.mjs)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5174)",
-      "Bash(node .tmp-verify-trust.mjs)"
+      "Bash(node .tmp-verify-trust.mjs)",
+      "Bash(node .tmp-verify-services.mjs)"
     ]
   }
 }
