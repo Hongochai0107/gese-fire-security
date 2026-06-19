@@ -1,0 +1,62 @@
+services:
+  # ============ MySQL Database ============
+  mysql:
+    image: mysql:8.0
+    container_name: gese-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: gese_root_2024
+      MYSQL_DATABASE: gese_fire_security
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============ Backend API (NestJS) ============
+  api:
+    container_name: gese-api
+    build:
+      context: .
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      APP_PORT: 3001
+      APP_ENV: production
+      CORS_ORIGINS: http://localhost,http://localhost:5174
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: gese_root_2024
+      DB_DATABASE: gese_fire_security
+      JWT_SECRET: gese-jwt-secret-change-in-production
+      JWT_EXPIRES_IN: 15m
+      JWT_REFRESH_SECRET: gese-refresh-secret-change-in-production
+      JWT_REFRESH_EXPIRES_IN: 7d
+      UPLOAD_DIR: ./uploads
+      MAX_FILE_SIZE: 5242880
+    volumes:
+      - api_uploads:/app/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # ============ Frontend + Admin (React, cùng 1 build) ============
+  frontend:
+    container_name: gese-frontend
+    build:
+      context: ../gese-fire-security
+    restart: unless-stopped
+    ports:
+      - "5174:80"
+    depends_on:
+      - api
+
+volumes:
+  mysql_data:
+  api_uploads:
