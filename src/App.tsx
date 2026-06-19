@@ -1,32 +1,28 @@
-import { Navbar } from '@/layouts/navbar'
-import { Container } from '@/components/ui/Container'
-import { HeroSection } from '@/pages/home/sections/HeroSection'
-import { TrustSection } from '@/pages/home/sections/TrustSection'
-import { ServicesSection } from '@/pages/home/sections/ServicesSection'
-import { WhyChooseUsSection } from '@/pages/home/sections/WhyChooseUsSection'
-import { FeaturedProjectsSection } from '@/pages/home/sections/FeaturedProjectsSection'
-import { CertificatesSection } from '@/pages/home/sections/CertificatesSection'
+import { Route, Routes } from 'react-router-dom'
+import { RootLayout } from '@/layouts/RootLayout'
+import { HomePage } from '@/pages/home/HomePage'
+import { ServicesPage } from '@/pages/services/ServicesPage'
+import { ProjectsPage } from '@/pages/projects/ProjectsPage'
+import { ProjectDetailPage } from '@/pages/projects/ProjectDetailPage'
+import { AboutPage } from '@/pages/about/AboutPage'
+import { BlogPage } from '@/pages/blog/BlogPage'
+import { ContactPage } from '@/pages/contact/ContactPage'
+import { NotFoundPage } from '@/pages/not-found/NotFoundPage'
 
 function App() {
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-
-      <main>
-        <HeroSection />
-        <TrustSection />
-        <ServicesSection />
-        <WhyChooseUsSection />
-        <FeaturedProjectsSection />
-        <CertificatesSection />
-
-        <section className="flex h-[60vh] items-center">
-          <Container>
-            <p className="text-muted">Khu vực xem trước cho các section tiếp theo.</p>
-          </Container>
-        </section>
-      </main>
-    </div>
+    <Routes>
+      <Route element={<RootLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="services" element={<ServicesPage />} />
+        <Route path="projects" element={<ProjectsPage />} />
+        <Route path="projects/:slug" element={<ProjectDetailPage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="blog" element={<BlogPage />} />
+        <Route path="contact" element={<ContactPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   )
 }
 
