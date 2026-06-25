@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { CheckCircle2 } from 'lucide-react'
+import { Seo } from '@/components/Seo'
 import { Container } from '@/components/ui/Container'
 import { CtaSection } from '@/pages/home/sections/CtaSection'
 import { fadeInUp, staggerContainer } from '@/components/motion/variants'
@@ -10,6 +11,7 @@ import { cn } from '@/lib/utils'
 export function ServicesPage() {
   return (
     <>
+      <Seo title="Dịch vụ" description="Giải pháp PCCC & An ninh toàn diện — tư vấn, thiết kế, thi công và bảo trì hệ thống PCCC cho doanh nghiệp." />
       <section className="border-b border-border py-20 sm:py-28">
         <Container>
           <motion.div

@@ -46,7 +46,7 @@ export function HeroSection() {
               className="text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl"
             >
               Bảo vệ con người &amp; tài sản với{' '}
-              <span className="text-primary">hệ thống PCCC</span> đạt chuẩn
+              <span className="fire-text">hệ thống PCCC</span> đạt chuẩn
             </motion.h1>
 
             <motion.p

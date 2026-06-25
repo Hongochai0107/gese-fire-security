@@ -22,7 +22,19 @@
       "Bash(node .tmp-verify-why.mjs)",
       "Bash(node .tmp-verify-projects.mjs)",
       "Bash(node .tmp-verify-projects2.mjs)",
-      "Bash(node .tmp-verify-certs.mjs)"
+      "Bash(node .tmp-verify-certs.mjs)",
+      "Bash(node .tmp-verify-testimonials.mjs)",
+      "Bash(node .tmp-verify-testimonials2.mjs)",
+      "Bash(node .tmp-verify-cta.mjs)",
+      "Bash(node -e \"const icons = require\\('lucide-react'\\); console.log\\(Object.keys\\(icons\\).filter\\(k => /facebook|linkedin|youtube|twitter|instagram|x$/i.test\\(k\\)\\)\\)\")",
+      "Bash(node .tmp-verify-footer.mjs)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5174 --max-time 3)",
+      "Bash(echo \"started with pid $!\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5174 --max-time 3)",
+      "Bash(node .tmp-verify-green.mjs)",
+      "Bash(node -e \"console.log\\(require\\('./package.json'\\).devDependencies\\)\")",
+      "Bash(node .tmp-verify-routing.mjs)",
+      "Bash(node -e \"const i = require\\('lucide-react'\\); ['ArrowLeft','MapPin','CheckCircle2','Calendar','Ruler','Users','Building2'].forEach\\(n => console.log\\(n, typeof i[n]\\)\\)\")"
     ]
   }
 }

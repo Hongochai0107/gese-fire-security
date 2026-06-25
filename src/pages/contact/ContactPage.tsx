@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button'
 import { fadeInUp, staggerContainer } from '@/components/motion/variants'
 import { siteConfig } from '@/lib/site-config'
 import { cn } from '@/lib/utils'
+import api from '@/lib/api'
 
 const contactInfo = [
   {
@@ -40,10 +41,32 @@ const inputStyles =
 
 export function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSubmitted(true)
+    setSubmitting(true)
+    setError('')
+    const formData = new FormData(e.currentTarget)
+    const body = {
+      name: formData.get('name') as string,
+      phone: formData.get('phone') as string,
+      email: (formData.get('email') as string) || undefined,
+      company: (formData.get('company') as string) || undefined,
+      service: (formData.get('service') as string) || undefined,
+      message: formData.get('message') as string,
+      source: 'contact_page',
+    }
+    try {
+      await api.post('/leads/public', body)
+      setSubmitted(true)
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message || 'Có lỗi xảy ra, vui lòng thử lại.'
+      setError(msg)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -282,9 +305,13 @@ export function ContactPage() {
                       />
                     </div>
 
-                    <Button type="submit" size="lg" className="mt-2 w-full">
+                    {error && (
+                      <p className="rounded-xl border border-error/30 bg-error/10 px-4 py-2.5 text-sm text-error">{error}</p>
+                    )}
+
+                    <Button type="submit" size="lg" className="mt-2 w-full" disabled={submitting}>
                       <Send className="h-4 w-4" />
-                      Gửi yêu cầu báo giá
+                      {submitting ? 'Đang gửi...' : 'Gửi yêu cầu báo giá'}
                     </Button>
                   </form>
                 )}

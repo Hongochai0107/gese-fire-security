@@ -7,6 +7,7 @@ import { siteConfig } from '@/lib/site-config'
 import { Logo } from './Logo'
 import { NavLinks } from './NavLinks'
 import { MobileMenu } from './MobileMenu'
+import { ThemeToggle } from '@/components/ui/ThemeToggle'
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -41,7 +42,8 @@ export function Navbar() {
 
           <NavLinks />
 
-          <div className="hidden items-center gap-6 md:flex">
+          <div className="hidden items-center gap-4 md:flex">
+            <ThemeToggle />
             <a
               href={`tel:${siteConfig.contact.hotline.replace(/\s/g, '')}`}
               className="flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-white"
