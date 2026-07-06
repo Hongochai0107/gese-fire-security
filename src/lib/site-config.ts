@@ -7,6 +7,7 @@ export const siteConfig = {
   contact: {
     phone: '+84 28 1234 5678',
     hotline: '1900 1234',
+    zalo: '19001234',
     email: 'contact@gesefiresecurity.vn',
     address: 'Tầng 12, Tòa nhà GESE Tower, Quận 1, TP. Hồ Chí Minh',
   },

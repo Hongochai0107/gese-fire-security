@@ -75,7 +75,7 @@ export function HeroSection() {
             <motion.ul
               variants={fadeInUp}
               transition={itemTransition}
-              className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-3"
+              className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-3"
             >
               {trustPoints.map((point) => (
                 <li key={point} className="flex items-center gap-2 text-sm text-muted">
@@ -123,7 +123,7 @@ export function HeroSection() {
                 <Award className="h-5 w-5" />
               </span>
               <div className="leading-tight">
-                <p className="text-lg font-bold text-white">15+ năm</p>
+                <p className="text-lg font-bold text-white">9+ năm</p>
                 <p className="text-xs text-muted">Kinh nghiệm triển khai</p>
               </div>
             </motion.div>

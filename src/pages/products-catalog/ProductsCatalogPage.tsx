@@ -2,27 +2,33 @@ import { useEffect, useState } from 'react'
 import { Seo } from '@/components/Seo'
 import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Search, ChevronLeft, ChevronRight, ShoppingBag } from 'lucide-react'
+import { Search, ChevronLeft, ChevronRight, ShoppingBag, FileText, Check } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { fadeInUp, staggerContainer } from '@/components/motion/variants'
-import { productApi, categoryApi } from '@/lib/api'
+import { productApi, categoryApi, supplierApi } from '@/lib/api'
 import { ProductGridSkeleton } from '@/components/ui/Skeleton'
-import type { Product, Category } from '@/lib/api'
+import type { Product, Category, Supplier } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { useQuote } from '@/contexts/QuoteContext'
+import toast from 'react-hot-toast'
 
 export function ProductsCatalogPage() {
+  const { addItem, isInQuote } = useQuote()
   const [searchParams, setSearchParams] = useSearchParams()
   const [products, setProducts] = useState<Product[]>([])
   const [categories, setCategories] = useState<Category[]>([])
+  const [suppliers, setSuppliers] = useState<Supplier[]>([])
   const [meta, setMeta] = useState({ page: 1, limit: 12, total: 0, totalPages: 0 })
   const [loading, setLoading] = useState(true)
 
   const currentCategory = searchParams.get('category') || ''
+  const currentSupplier = searchParams.get('supplier') || ''
   const currentSearch = searchParams.get('q') || ''
   const currentPage = Number(searchParams.get('page')) || 1
 
   useEffect(() => {
     categoryApi.list().then(setCategories).catch(() => {})
+    supplierApi.list().then(setSuppliers).catch(() => {})
   }, [])
 
   useEffect(() => {
@@ -30,13 +36,14 @@ export function ProductsCatalogPage() {
     queueMicrotask(() => { if (!cancelled) setLoading(true) })
     const p: Record<string, unknown> = { page: currentPage, limit: 12 }
     if (currentCategory) p.categoryId = currentCategory
+    if (currentSupplier) p.supplierId = currentSupplier
     if (currentSearch) p.search = currentSearch
 
     productApi.list(p).then((res) => {
       if (!cancelled) { setProducts(res.data); setMeta(res.meta) }
     }).catch(() => {}).finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
-  }, [currentCategory, currentSearch, currentPage])
+  }, [currentCategory, currentSupplier, currentSearch, currentPage])
 
   const updateParam = (key: string, value: string) => {
     const next = new URLSearchParams(searchParams)
@@ -134,6 +141,45 @@ export function ProductsCatalogPage() {
                     ))}
                   </ul>
                 </div>
+
+                {/* Suppliers */}
+                {suppliers.length > 0 && (
+                  <div>
+                    <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+                      Nhà cung cấp
+                    </h3>
+                    <ul className="flex flex-col gap-1">
+                      <li>
+                        <button
+                          onClick={() => updateParam('supplier', '')}
+                          className={cn(
+                            'w-full rounded-lg px-3 py-2 text-left text-sm transition-colors',
+                            !currentSupplier
+                              ? 'bg-primary/10 font-semibold text-primary'
+                              : 'text-muted hover:bg-surface hover:text-white',
+                          )}
+                        >
+                          Tất cả nhà cung cấp
+                        </button>
+                      </li>
+                      {suppliers.map((sup) => (
+                        <li key={sup.id}>
+                          <button
+                            onClick={() => updateParam('supplier', String(sup.id))}
+                            className={cn(
+                              'w-full rounded-lg px-3 py-2 text-left text-sm transition-colors',
+                              currentSupplier === String(sup.id)
+                                ? 'bg-primary/10 font-semibold text-primary'
+                                : 'text-muted hover:bg-surface hover:text-white',
+                            )}
+                          >
+                            {sup.name}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </aside>
 
@@ -158,7 +204,7 @@ export function ProductsCatalogPage() {
               ) : (
                 <>
                   <motion.div
-                    key={`${currentCategory}-${currentSearch}-${currentPage}`}
+                    key={`${currentCategory}-${currentSupplier}-${currentSearch}-${currentPage}`}
                     variants={staggerContainer}
                     initial="hidden"
                     animate="visible"
@@ -204,11 +250,34 @@ export function ProductsCatalogPage() {
                                 {product.shortDescription}
                               </p>
                             )}
-                            {product.price > 0 && (
-                              <p className="mt-3 text-lg font-bold text-primary">
-                                {formatPrice(product.price)}
-                              </p>
-                            )}
+                            <div className="mt-3 flex items-center justify-between">
+                              {product.price > 0 && (
+                                <p className="text-lg font-bold text-primary">
+                                  {formatPrice(product.price)}
+                                </p>
+                              )}
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  if (!isInQuote(product.id)) {
+                                    toast.success(`Đã thêm "${product.name}" vào báo giá`)
+                                  }
+                                  addItem({ id: product.id, name: product.name, sku: product.sku, thumbnail: product.thumbnail, slug: product.slug })
+                                }}
+                                className={cn(
+                                  'ml-auto flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors',
+                                  isInQuote(product.id)
+                                    ? 'bg-primary/10 text-primary'
+                                    : 'bg-surface text-muted hover:bg-primary/10 hover:text-primary',
+                                )}
+                              >
+                                {isInQuote(product.id) ? (
+                                  <><Check className="h-3.5 w-3.5" /> Đã thêm</>
+                                ) : (
+                                  <><FileText className="h-3.5 w-3.5" /> Báo giá</>
+                                )}
+                              </button>
+                            </div>
                           </div>
                         </Link>
                       </motion.div>

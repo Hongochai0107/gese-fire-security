@@ -14,6 +14,9 @@ const BlogDetailPage = lazy(() => import('@/pages/blog/BlogDetailPage').then((m)
 const ContactPage = lazy(() => import('@/pages/contact/ContactPage').then((m) => ({ default: m.ContactPage })))
 const ProductsCatalogPage = lazy(() => import('@/pages/products-catalog/ProductsCatalogPage').then((m) => ({ default: m.ProductsCatalogPage })))
 const ProductCatalogDetailPage = lazy(() => import('@/pages/products-catalog/ProductDetailPage').then((m) => ({ default: m.ProductDetailPage })))
+const QuotePage = lazy(() => import('@/pages/quote/QuotePage').then((m) => ({ default: m.QuotePage })))
+const ComparePage = lazy(() => import('@/pages/compare/ComparePage').then((m) => ({ default: m.ComparePage })))
+const FaqPage = lazy(() => import('@/pages/faq/FaqPage').then((m) => ({ default: m.FaqPage })))
 const NotFoundPage = lazy(() => import('@/pages/not-found/NotFoundPage').then((m) => ({ default: m.NotFoundPage })))
 
 const AuthProvider = lazy(() => import('@/admin/contexts/AuthContext').then((m) => ({ default: m.AuthProvider })))
@@ -22,6 +25,7 @@ const AdminLoginPage = lazy(() => import('@/admin/pages/auth/LoginPage').then((m
 const DashboardPage = lazy(() => import('@/admin/pages/dashboard/DashboardPage').then((m) => ({ default: m.DashboardPage })))
 const AdminProductsPage = lazy(() => import('@/admin/pages/products/ProductsPage').then((m) => ({ default: m.ProductsPage })))
 const CategoriesPage = lazy(() => import('@/admin/pages/categories/CategoriesPage').then((m) => ({ default: m.CategoriesPage })))
+const SuppliersPage = lazy(() => import('@/admin/pages/suppliers/SuppliersPage').then((m) => ({ default: m.SuppliersPage })))
 const NewsPage = lazy(() => import('@/admin/pages/news/NewsPage').then((m) => ({ default: m.NewsPage })))
 const ProjectsAdminPage = lazy(() => import('@/admin/pages/projects/ProjectsAdminPage').then((m) => ({ default: m.ProjectsAdminPage })))
 const LeadsPage = lazy(() => import('@/admin/pages/leads/LeadsPage').then((m) => ({ default: m.LeadsPage })))
@@ -53,6 +57,9 @@ function App() {
             <Route path="blog" element={<BlogPage />} />
             <Route path="blog/:slug" element={<BlogDetailPage />} />
             <Route path="contact" element={<ContactPage />} />
+            <Route path="quote" element={<QuotePage />} />
+            <Route path="compare" element={<ComparePage />} />
+            <Route path="faq" element={<FaqPage />} />
           </Route>
 
           {/* ===== Admin Dashboard ===== */}
@@ -64,6 +71,7 @@ function App() {
                   <Route index element={<DashboardPage />} />
                   <Route path="products" element={<AdminProductsPage />} />
                   <Route path="categories" element={<CategoriesPage />} />
+                  <Route path="suppliers" element={<SuppliersPage />} />
                   <Route path="news" element={<NewsPage />} />
                   <Route path="projects" element={<ProjectsAdminPage />} />
                   <Route path="leads" element={<LeadsPage />} />

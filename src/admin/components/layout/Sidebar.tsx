@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import {
   LayoutDashboard, Package, FolderTree, Newspaper, Building2,
-  Users, Image, LogOut, ArrowLeft,
+  Users, Image, LogOut, ArrowLeft, Truck,
 } from 'lucide-react'
 import { useAuth } from '@/admin/contexts/AuthContext'
 import { cn } from '@/lib/utils'
@@ -10,6 +10,7 @@ const navItems = [
   { to: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/admin/products', icon: Package, label: 'Sản phẩm' },
   { to: '/admin/categories', icon: FolderTree, label: 'Danh mục' },
+  { to: '/admin/suppliers', icon: Truck, label: 'Nhà cung cấp' },
   { to: '/admin/news', icon: Newspaper, label: 'Tin tức' },
   { to: '/admin/projects', icon: Building2, label: 'Dự án' },
   { to: '/admin/leads', icon: Users, label: 'Leads' },

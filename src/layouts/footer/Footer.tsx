@@ -10,6 +10,7 @@ const companyLinks = [
   { label: 'Giới thiệu', to: '/about' },
   { label: 'Dự án', to: '/projects' },
   { label: 'Blog', to: '/blog' },
+  { label: 'Câu hỏi thường gặp', to: '/faq' },
   { label: 'Liên hệ', to: '/contact' },
 ]
 

@@ -59,7 +59,7 @@ export function ContactPage() {
       source: 'contact_page',
     }
     try {
-      await api.post('/leads/public', body)
+      await api.post('/leads/submit', body)
       setSubmitted(true)
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message || 'Có lỗi xảy ra, vui lòng thử lại.'

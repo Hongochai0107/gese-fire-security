@@ -16,43 +16,64 @@ export interface Product {
   slug: string
   sku: string
   shortDescription: string
-  description: string
+  description: string | null
   specifications: Record<string, string>
+  features: string[] | null
   price: number
   status: string
-  thumbnail: string
-  seoTitle: string
-  seoDescription: string
+  thumbnail: string | null
+  seoTitle: string | null
+  seoDescription: string | null
   categoryId: number
   category: Category | null
-  images: { id: number; url: string; alt: string }[]
+  supplierId: number | null
+  supplier: Supplier | null
+  images: { id: number; url: string; alt: string }[] | null
   createdAt: string
+  updatedAt: string
 }
 
 export interface Category {
   id: number
   name: string
   slug: string
-  description: string
-  image: string
+  description: string | null
+  image: string | null
   sortOrder: number
-  isActive: boolean
-  children: Category[]
+  parentId: number | null
+  active: boolean
+  children: Category[] | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface Supplier {
+  id: number
+  name: string
+  slug: string
+  logo: string | null
+  createdAt: string
+  updatedAt: string
 }
 
 export interface Article {
   id: number
   title: string
   slug: string
-  thumbnail: string
+  thumbnail: string | null
   content: string
   excerpt: string
   status: string
   publishedAt: string
+  seoTitle: string | null
+  seoDescription: string | null
+  categoryId: number | null
   category: { id: number; name: string; slug: string } | null
+  authorId: number | null
   author: { id: number; name: string } | null
-  tags: { id: number; name: string; slug: string }[]
+  tags: { id: number; name: string; slug: string }[] | null
   createdAt: string
+  updatedAt: string
 }
 
 export interface ProjectItem {
@@ -62,13 +83,16 @@ export interface ProjectItem {
   client: string
   location: string
   description: string
-  content: string
-  thumbnail: string
+  content: string | null
+  thumbnail: string | null
   completedAt: string
   scope: string[]
   status: string
-  images: { id: number; url: string; alt: string }[]
+  seoTitle: string | null
+  seoDescription: string | null
+  images: { id: number; url: string; alt: string }[] | null
   createdAt: string
+  updatedAt: string
 }
 
 export const productApi = {
@@ -81,6 +105,11 @@ export const productApi = {
 export const categoryApi = {
   list: () =>
     api.get<{ data: Category[] }>('/categories/public').then((r) => r.data.data),
+}
+
+export const supplierApi = {
+  list: () =>
+    api.get<{ data: Supplier[] }>('/suppliers/public').then((r) => r.data.data),
 }
 
 export const newsApi = {
