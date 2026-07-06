@@ -1,7 +1,33 @@
-node_modules
-dist
-.env
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### Eclipse ###
+.classpath
+.project
+.settings
+
+### VS Code ###
+.vscode/
+
+### Node (legacy) ###
+node_modules/
+dist/
+
+### OS ###
+.DS_Store
+Thumbs.db
+
+### App ###
 uploads/*
 !uploads/.gitkeep
+*.log
+.env
 *.local
-.DS_Store

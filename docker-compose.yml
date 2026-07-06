@@ -17,7 +17,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # ============ Backend API (NestJS) ============
+  # ============ Backend API (Spring Boot) ============
   api:
     container_name: gese-api
     build:
@@ -27,26 +27,26 @@ services:
       - "3001:3001"
     environment:
       APP_PORT: 3001
-      APP_ENV: production
-      CORS_ORIGINS: http://localhost,http://localhost:5174
+      CORS_ORIGINS: http://localhost,http://localhost:5174,http://localhost:5175
       DB_HOST: mysql
       DB_PORT: 3306
       DB_USERNAME: root
       DB_PASSWORD: gese_root_2024
       DB_DATABASE: gese_fire_security
-      JWT_SECRET: gese-jwt-secret-change-in-production
-      JWT_EXPIRES_IN: 15m
-      JWT_REFRESH_SECRET: gese-refresh-secret-change-in-production
-      JWT_REFRESH_EXPIRES_IN: 7d
+      JPA_DDL_AUTO: update
+      SHOW_SQL: "false"
+      JWT_SECRET: gese-jwt-secret-change-in-production-min-32-chars!!
+      JWT_EXPIRATION_MS: 900000
+      JWT_REFRESH_EXPIRATION_DAYS: 7
       UPLOAD_DIR: ./uploads
-      MAX_FILE_SIZE: 5242880
+      MAX_FILE_SIZE: 5MB
     volumes:
       - api_uploads:/app/uploads
     depends_on:
       mysql:
         condition: service_healthy
 
-  # ============ Frontend + Admin (React, cùng 1 build) ============
+  # ============ Frontend Marketing (React) ============
   frontend:
     container_name: gese-frontend
     build:
@@ -54,6 +54,17 @@ services:
     restart: unless-stopped
     ports:
       - "5174:80"
+    depends_on:
+      - api
+
+  # ============ Admin Dashboard (React) ============
+  admin:
+    container_name: gese-admin
+    build:
+      context: ../gese-admin
+    restart: unless-stopped
+    ports:
+      - "5175:80"
     depends_on:
       - api
 
